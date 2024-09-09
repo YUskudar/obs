@@ -1,0 +1,111 @@
+﻿@model obs.Models.student
+
+@{
+    ViewBag.Title = "Öğrenci Kayıt";
+}
+
+<h2>Öğrenci Kayıt</h2>
+
+<div class="student-form-container">
+    @using (Html.BeginForm("Register", "Öğrenci", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.studentname, "Öğrenci Adı")
+            @Html.TextBoxFor(model => model.studentname, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.studentsurname, "Öğrenci Soyadı")
+            @Html.TextBoxFor(model => model.studentsurname, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.studentbirth, "Doğum Tarihi")
+            @Html.TextBoxFor(model => model.studentbirth, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.studentcity, "Şehir")
+            @Html.TextBoxFor(model => model.studentcity, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.studenfather, "Baba Adı")
+            @Html.TextBoxFor(model => model.studenfather, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.studentmother, "Anne Adı")
+            @Html.TextBoxFor(model => model.studentmother, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Profil Fotoğrafı")
+            <input type="file" name="imageFile" class="form-control" />
+            @Html.ValidationMessage("imageFile")
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.clid, "Sınıf")
+            @Html.DropDownListFor(model => model.clid, (SelectList)ViewBag.ClassId, "Sınıf Seçin", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.clid)
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    }
+</div>
+
+<style>
+    .student-form-container {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 20px auto;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .form-control {
+        display: block;
+        width: 80%;
+        padding: 10px;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>

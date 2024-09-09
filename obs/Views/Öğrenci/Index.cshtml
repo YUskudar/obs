@@ -1,0 +1,83 @@
+﻿@model List<obs.Models.student>
+
+@{
+    ViewBag.Title = "Öğrenci Listesi";
+}
+
+<h2 class="text-center mb-4">Öğrenci Listesi</h2>
+
+<div class="row">
+    @foreach (var student in Model)
+    {
+        <div class="col-md-4 d-flex align-items-stretch">
+            <div class="card mb-4 shadow-lg rounded">
+                <div class="card-header bg-info text-white text-center">
+                    <h4 class="my-0 font-weight-bold">@student.studentname @student.studentsurname</h4>
+                </div>
+                <div class="card-body text-center">
+                    @if (student.studentphoto != null)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(student.studentphoto)" alt="Student Photo" class="img-fluid rounded-circle mb-3 shadow-sm" style="width:100px;height:100px;" />
+                    }
+                    else
+                    {
+                        <img src="/path-to-placeholder-image.jpg" alt="No Photo" class="img-fluid rounded-circle mb-3 shadow-sm" style="width:100px;height:100px;" />
+                    }
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li><strong>Okul Numarası:</strong> @student.sid</li>
+                    <li><strong>Doğum Tarihi:</strong> @student.studentbirth.ToShortDateString()</li>
+                    <li><strong>Doğum Yeri:</strong> @student.studentcity</li>
+                    <li><strong>Baba Adı:</strong> @student.studenfather</li>
+                    <li><strong>Anne Adı:</strong> @student.studentmother</li>
+                    <li><strong>Sınıf ve Dönem:</strong> @(student.@class?.classname) @(student.@class?.classyear)</li>
+                </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .card {
+        border-radius: 10px;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+    .card-header {
+        font-size: 18px;
+        padding: 10px;
+        background-color: #17a2b8;
+    }
+
+    .card-body {
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .img-fluid {
+        object-fit: cover;
+    }
+
+    .list-unstyled {
+        text-align: left;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+

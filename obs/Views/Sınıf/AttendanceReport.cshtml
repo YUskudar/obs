@@ -1,0 +1,93 @@
+﻿@model obs.ViewModels.AttendanceReportViewModel
+
+@{
+    ViewBag.Title = "Yoklama Raporu";
+}
+
+<div class="container mt-4">
+    <h2>@ViewBag.Title</h2>
+
+    @using (Html.BeginForm("AttendanceReport", "Sınıf", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, "Tarih", new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", id = "datePicker" })
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassId, "Sınıf")
+            @Html.DropDownListFor(model => model.ClassId, Model.Classes, "Sınıf Seçin", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ClassId)
+        </div>
+
+        <button type="submit" class="btn btn-primary">Raporu Görüntüle</button>
+    }
+
+    @if (Model.StudentAttendances != null && Model.StudentAttendances.Any())
+    {
+        <h3 class="mt-4">@Model.ClassName - @Model.Date.ToShortDateString()</h3>
+
+        <div class="table-responsive mt-3">
+            <table class="table table-striped table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>İsim</th>
+                        <th>Soyisim</th>
+                        <th>Yoklama Durumu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var studentAttendance in Model.StudentAttendances)
+                    {
+                        <tr>
+                            <td>@studentAttendance.StudentName</td>
+                            <td>@studentAttendance.StudentSurname</td>
+                            <td>
+                                @(studentAttendance.IsPresent ?
+                                  "Geldi" :
+                                  "Gelmedi")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning mt-4" role="alert">
+            Yoklama verisi bulunamadı.
+        </div>
+    }
+</div>
+
+<style>
+    .form-label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .table {
+        border-radius: 0.25rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .thead-light th {
+        background-color: #f8f9fa;
+        color: #495057;
+    }
+
+    .badge-success {
+        background-color: #28a745;
+    }
+
+    .badge-danger {
+        background-color: #dc3545;
+    }
+
+    .alert-warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+</style>

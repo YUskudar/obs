@@ -1,0 +1,74 @@
+﻿@model IEnumerable<obs.Models.student>
+
+@{
+    ViewBag.Title = "Sınıftaki Öğrenciler";
+}
+
+<h2 class="text-center mb-4">Sınıftaki Öğrenciler</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered align-middle text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th>Fotoğraf</th>
+                <th>İsim</th>
+                <th>Soyisim</th>
+                <th>Doğum Tarihi</th>
+                <th>Şehir</th>
+                <th>Baba</th>
+                <th>Anne</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>
+                        @if (student.studentphoto != null)
+                        {
+                            <img src="data:image/png;base64,@Convert.ToBase64String(student.studentphoto)" alt="Student Photo" class="img-fluid rounded-circle shadow" style="width:50px;height:50px;" />
+                        }
+                        else
+                        {
+                            <img src="/path-to-placeholder-image.jpg" alt="No Photo" class="img-fluid rounded-circle shadow" style="width:50px;height:50px;" />
+                        }
+                    </td>
+                    <td>@student.studentname</td>
+                    <td>@student.studentsurname</td>
+                    <td>@student.studentbirth.ToShortDateString()</td>
+                    <td>@student.studentcity</td>
+                    <td>@student.studenfather</td>
+                    <td>@student.studentmother</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .table {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .thead-dark th {
+        background-color: #343a40;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    td, th {
+        vertical-align: middle;
+    }
+
+    .img-fluid {
+        object-fit: cover;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+</style>

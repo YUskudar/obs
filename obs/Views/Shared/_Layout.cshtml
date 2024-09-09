@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ASP.NET Uygulamam</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #004d99; 
+            padding-top: 20px;
+            color: white;
+        }
+
+            .sidebar a {
+                padding: 15px 25px;
+                text-decoration: none;
+                font-size: 16px;
+                color: white;
+                display: block;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+                .sidebar a:hover {
+                    background-color: #007bff;
+                    color: #fff; 
+                    border-radius: 5px;
+                }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: fixed;
+            width: calc(100% - 250px);
+            left: 250px;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+
+</head>
+<body>
+    
+
+    <div class="sidebar">
+        
+        @Html.ActionLink("Öğrenci Kayıt", "Register", "Öğrenci", new { area = "" }, new { @class = "navbar-brand" })
+        @Html.ActionLink("Öğrenci Listesi", "Index", "Öğrenci", new { area = "" }, new { @class = "nav-link" })
+        @Html.ActionLink("Sınıflar", "Index", "Sınıf", new { area = "" }, new { @class = "nav-link" })
+        @Html.ActionLink("Öğretmenler", "Index", "Öğretmen", new { area = "" }, new { @class = "nav-link" })
+        @Html.ActionLink("Yoklama Raporu Al", "AttendanceReport", "Sınıf", new { area = "" }, new { @class = "nav-link" })
+    </div>
+
+    <div class="content">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
